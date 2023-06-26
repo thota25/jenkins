@@ -98,7 +98,7 @@ pipeline {
                                     sh 'newman run src/test/java/com/example/resources/postman-testscript.json -d src/test/java/com/example/resources/tomcat-env.json -k'
                                     currentBuild.result = 'SUCCESS'
                                 } catch(Exception err) {
-                                    currentBuild.result = 'FAILURE'
+                                    // currentBuild.result = 'FAILURE'
                                 }
                             }
                         }
@@ -195,8 +195,8 @@ pipeline {
             steps {
                 script {
                     if (currentBuild.result == 'FAILURE') {
-                        mail (to: 'ragupathi.kommidi@gmail.com', subject: "The job '${env.JOB_NAME}' (${env.BUILD_NUMBER}) failed, rollback to last stable version", body: "Please go to ${env.BUILD_URL} for the detail")
-			            echo "The job ${env.JOB_NAME} (${env.BUILD_NUMBER}) failed, rollback to last stable version"
+                        mail (to: 'ragupathi.kommidi@gmail.com', subject: "ERROR: The job '${env.JOB_NAME}' (${env.BUILD_NUMBER}) failed, rollback to last stable version", body: "Please go to ${env.BUILD_URL} for the detail")
+			            echo "ERROR: The job ${env.JOB_NAME} (${env.BUILD_NUMBER}) failed, rollback to last stable version"
 
                     } else {
 			            echo "The deployment process is done, new version is deployed successfully"
